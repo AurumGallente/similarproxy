@@ -5,11 +5,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="bower_components/bootstrap//dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://bootswatch.com/slate/bootstrap.min.css">
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="bower_components/angular/angular.min.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.min.js"></script>  
+		<script src="bower_components/angular-resource/angular-resource.min.js"></script>            
         <script src="js/const.js"></script>
         <script src="js/app.js"></script>
     </head>
@@ -18,31 +19,61 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div ng-controller="singleSiteController">
-                        <form class="form-horizontal" name="searchForm">
-                            <div class="form-group">
-                                <input class="input-sm" type="text" name="site" placeholder="site.com" ng-required="true" ng-model="searchSite" />                                
-                                <input type="button" class="btn btn-sm" value="search" ng-click ="search(searchSite)" />
-                            </div>
-                        </form>
-                        <div ng-repeat="entry in searchResult">
-                            <img ng-src="{{entry.data.overview.Icon}}" />
-                            <p>{{entry.data.overview.Category}}</p>
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th ng-repeat="(date, count) in entry.data.overview.Engagements.WeeklyTrafficNumbers">
-                                       <p>{{date}}</p>                                               
-                                   </th>                                           
-                                </tr>
-                                <tr>
-                                    <td ng-repeat="(date, count) in entry.data.overview.Engagements.WeeklyTrafficNumbers">
-                                       <p>{{count}}</p>                                               
-                                   </td>                                           
-                                </tr>
-                            </table>
-                            <div ng-show="{{entry.data.noData}}">
-                                <p>no data</p>
-                            </div>
-                            <div><p>Parse date: {{entry.timestamp}}</p></div>
+                      	<div class="row">
+							<div class="col-xs-6 col-xs-offset-3">
+								<div class="panel panel-default" style="margin-top: 15px;">
+									<div class="panel-body">
+										<form class="form-horizontal" name="searchForm">
+											<div class="form-group" style="margin-bottom: 0px;">
+												<div class="col-xs-8">
+													<input class="form-control" type="text" name="site" placeholder="site.com" ng-required="true" ng-model="searchSite" />
+												</div>
+												<div class="col-xs-4">
+													<input type="button" class="btn btn-primary col-xs-12" value="search" ng-click ="search(searchSite)" />
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+                        </div>
+                        <div ng-repeat="entry in searchResult" class="panel panel-primary">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-6">
+										<img ng-src="{{entry.data.overview.Icon}}" class="pull-left"/>
+										<span>{{entry.data.overview.Category}}</span>
+									</div>
+									<div class="col-xs-6 text-right">
+										<span>Parse date: {{entry.timestamp}}</span>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+
+								<table class="table table-bordered table-striped">
+									<tr>
+									   <th>
+										 Дата
+									   </th>
+										<th ng-repeat="(date, count) in entry.data.overview.Engagements.WeeklyTrafficNumbers">
+										   <p>{{date}}</p>                                               
+									   </th>                                           
+									</tr>
+									<tr>
+									   <td>
+										   Количество посещений
+									   </td>
+										<td ng-repeat="(date, count) in entry.data.overview.Engagements.WeeklyTrafficNumbers">
+										   <p>{{count}}</p>                                               
+									   </td>                                           
+									</tr>
+								</table>
+								<div ng-show="{{entry.data.noData}}">
+									<p>no data</p>
+								</div>
+
+							</div>
                         </div>                        
                     </div>
                 </div>
